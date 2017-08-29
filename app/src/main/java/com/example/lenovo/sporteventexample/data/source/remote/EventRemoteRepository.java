@@ -5,6 +5,7 @@ import android.provider.SyncStateContract;
 
 import com.example.lenovo.sporteventexample.data.Event;
 import com.example.lenovo.sporteventexample.data.source.EventDataSource;
+import com.example.lenovo.sporteventexample.util.Constants;
 import com.example.lenovo.sporteventexample.util.Utility;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -49,7 +50,7 @@ public class EventRemoteRepository implements EventDataSource {
 
     @Override
     public void getAllEvents(final EventDataSource.LoadEventsCallback callback) {
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(SyncStateContract.Constants.PARSE_EVENT);
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Constants.PARSE_EVENT);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
@@ -74,7 +75,7 @@ public class EventRemoteRepository implements EventDataSource {
 
     @Override
     public void getEventsByCity(String city, final LoadEventsCallback callback) {
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(SyncStateContract.Constants.PARSE_EVENT);
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Constants.PARSE_EVENT);
         query.whereEqualTo(Event.CITY, city);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -100,7 +101,7 @@ public class EventRemoteRepository implements EventDataSource {
 
     @Override
     public void saveEvent(final SaveEventCallback callback, Event event) {
-        ParseObject object = new ParseObject(SyncStateContract.Constants.PARSE_EVENT);
+        ParseObject object = new ParseObject(Constants.PARSE_EVENT);
         object.put(Event.TITLE, event.getTitle());
         object.put(Event.CITY, event.getCity());
         object.put(Event.DESCRIPTION, event.getDescription());
@@ -131,7 +132,7 @@ public class EventRemoteRepository implements EventDataSource {
 
     @Override
     public void updateEvent(final SaveEventCallback callback, final Event event) {
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(SyncStateContract.Constants.PARSE_EVENT);
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Constants.PARSE_EVENT);
         query.getInBackground(event.getId(), new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
@@ -168,7 +169,7 @@ public class EventRemoteRepository implements EventDataSource {
 
     @Override
     public void getEvent(String id, final GetEventCallback callback) {
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(SyncStateContract.Constants.PARSE_EVENT);
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Constants.PARSE_EVENT);
         query.getInBackground(id, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
