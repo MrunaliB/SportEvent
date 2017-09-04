@@ -7,9 +7,8 @@ import com.example.lenovo.sporteventexample.data.Event;
 import java.util.List;
 
 /**
- * Created by LENOVO on 8/29/2017.
+ * Created by root on 11/6/17.
  */
-
 
 public interface EventDataSource {
 
@@ -44,4 +43,3 @@ public interface EventDataSource {
         void onError(Throwable throwable);
     }
 }
-

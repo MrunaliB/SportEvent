@@ -3,7 +3,7 @@ package com.example.lenovo.sporteventexample.data;
 import java.util.List;
 
 /**
- * Created by LENOVO on 8/29/2017.
+ * Created by root on 11/6/17.
  */
 
 public class Event {
@@ -159,4 +159,3 @@ public class Event {
         isVerified = verified;
     }
 }
-

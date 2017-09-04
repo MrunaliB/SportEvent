@@ -1,20 +1,16 @@
 package com.example.lenovo.sporteventexample.util;
 
 
-import com.example.lenovo.sporteventexample.BuildConfig;
+
 
 /**
- * Created by Mrunali on 8/29/17.
+ * Created by root on 27/2/17.
  */
 
 public class Constants
 {
-    public static final String ENVIRONMENT = BuildConfig.ENVIRONMENT;
-    public static final String PARSE_APP_ID = BuildConfig.PARSE_APP_ID;
-    public static final String PARSE_CLIENT_KEY = BuildConfig.PARSE_CLIENT_KEY;
-    public static final String PARSE_SERVER_URL = BuildConfig.PARSE_SERVER_URL;
-    public static final String AES_PASSPHRASE = BuildConfig.AES_PASSPHRASE;
-    //    public static final String FIREBASE_URL = BuildConfig.FIREBASE_UNIQUE_URL;
+
+//    public static final String FIREBASE_URL = BuildConfig.FIREBASE_UNIQUE_URL;
 //    public static final String FIREBASE_PROFILE_BUCKET = BuildConfig.FIREBASE_PROFILE_PICTURE_BUCKET_URL;
 //    public static final String FIREBASE_GALLERY_BUCKET = BuildConfig.FIREBASE_GALLERY_BUCKET_URL;
     public static final String UNASSIGNED_TASKS_FRAGMENT_TITLE = "Unassigned";
@@ -41,7 +37,16 @@ public class Constants
     public static final String APP_SHARED_PREFERENCE = "sharedPreference";
     public static final String REGEX_PHONE_INDIA = "((\\+*)((0[ -]+)*|(91 )*)(\\d{12}+|\\d{10}+))|\\d{5}([- ]*)\\d{6}";
     public static final String PARSE_USER = "User";
+    public static final String PARSE_STUDENT = "Student";
+    public static final String PARSE_SCHOOL = "School";
+    public static final String DEAL_VENDOR_TYPE = "vendorType";
+    public static final String DEAL_VIEWS = "views";
+    public static final String DEAL_CITY = "city";
+    public static final String DEAL_VIEW_COUNT = "viewCount";
+    public static final String OBJECT_ID = "objectId";
+    public static final String KEY_USER_ROLE = "role";
+    public static final String FIREBASE_PROFILE_PICTURE_BUCKET_URL = "gs://gilidanda-1da0a.appspot.com/profile-pictures";
+    public static final String PARSE_ASSOCIATION = "Association";
     public static final String PARSE_EVENT = "Event";
-
+    public static final String PARSE_NEWS = "News";
 }
-

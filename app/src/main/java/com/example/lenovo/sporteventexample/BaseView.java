@@ -1,8 +1,7 @@
 package com.example.lenovo.sporteventexample;
 
-
 /**
- * Created by Mrunali on 8/29/17.
+ * Created by root on 24/2/17.
  */
 
 public interface BaseView<T>
