@@ -1,7 +1,7 @@
 package com.example.lenovo.sporteventexample.util;
 
 
-
+import com.example.lenovo.sporteventexample.BuildConfig;
 
 /**
  * Created by root on 27/2/17.

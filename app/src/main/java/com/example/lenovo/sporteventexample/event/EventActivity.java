@@ -1,9 +1,7 @@
 package com.example.lenovo.sporteventexample.event;
 
-import android.content.Intent;
-import android.net.Uri;
+
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TextInputEditText;
@@ -14,19 +12,15 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.lenovo.sporteventexample.R;
 import com.example.lenovo.sporteventexample.data.Event;
 import com.example.lenovo.sporteventexample.util.Constants;
-
-import java.util.logging.Logger;
+import com.example.lenovo.sporteventexample.util.Logger;
+import com.example.lenovo.sporteventexample.util.SharedPreference;
+import com.example.lenovo.sporteventexample.util.Utility;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,44 +39,42 @@ public class EventActivity extends AppCompatActivity implements EventContract.Vi
     Toolbar toolbar;
     @Bind(R.id.ll_container_layout)
     LinearLayout containerLayout;
-    @Bind(R.id.input_layout_name)
-    TextInputLayout inputLayoutName;
+    @Bind(R.id.input_layout_event_title)
+    TextInputLayout inputLayoutEventTitle;
     @Bind(R.id.input_layout_primary_id)
     TextInputLayout inputLayoutPrimaryId;
-    @Bind(R.id.input_name)
-    TextInputEditText inputName;
+    @Bind(R.id.input_event_title)
+    TextInputEditText inputEventTitle;
     @Bind(R.id.input_primary_id)
     TextInputEditText inputPrimaryId;
     @Bind(R.id.input_layout_title)
-    TextInputEditText inputLayoutTitle;
+    TextInputLayout inputLayoutTitle;
     @Bind(R.id.input_title)
     TextInputEditText inputTitle;
-    @Bind(R.id.input_layout_discription)
-    TextInputEditText inputLayoutDiscription;
-    @Bind(R.id.input_discription)
-    TextInputEditText inputDiscription;
+    @Bind(R.id.input_layout_description)
+    TextInputLayout inputLayoutDescription;
+    @Bind(R.id.input_description)
+    TextInputEditText inputDescription;
     @Bind(R.id.crd_address_detail)
     CardView crdAddressDetail;
     @Bind(R.id.input_layout_city)
-    TextInputEditText inputLayoutCity;
+    TextInputLayout inputLayoutCity;
     @Bind(R.id.input_city)
     TextInputEditText inputCity;
     @Bind(R.id.input_layout_venue)
-    TextInputEditText inputLayoutVenue;
+    TextInputLayout inputLayoutVenue;
     @Bind(R.id.input_venue)
     TextInputEditText inputVenue;
     @Bind(R.id.crd_date_detail)
     CardView crdDateDetail;
     @Bind(R.id.input_layout_start_date)
-    TextInputEditText inputLayoutStartDate;
+    TextInputLayout inputLayoutStartDate;
     @Bind(R.id.input_start_date)
     TextInputEditText inputStartDate;
     @Bind(R.id.input_layout_end_date)
-    TextInputEditText inputLayoutEndDate;
+    TextInputLayout inputLayoutEndDate;
     @Bind(R.id.input_end_date)
     TextInputEditText inputEndDate;
-    @Bind(R.id.btn_save)
-    Button btnSave;
     @Bind(R.id.btn_update)
     Button btnUpdate;
 
@@ -103,10 +95,135 @@ public class EventActivity extends AppCompatActivity implements EventContract.Vi
                 formType = bundle.getString(Constants.KEY_FORM_TYPE);
             }
         }
+        presenter = new EventPresenter(this, this);
+        presenter.setFormType(formType);
+        presenter.start();
+
+         /*Check if the user is existing or new*/
+        if (TextUtils.isEmpty(formType)) {
+            Logger.d(TAG, "existing user");
+            inputLayoutPrimaryId.setVisibility(View.GONE);
+            /*get UserId if already exists*/
+            userId = SharedPreference.getStringSharedPreference(EventActivity.this, Constants.KEY_USER_ID);
+            userRole = SharedPreference.getStringSharedPreference(EventActivity.this, Constants.KEY_USER_ROLE);
+            if (!TextUtils.isEmpty(userId)) {
+                inputTitle.setEnabled(false);
+
+                presenter.getEventData();
+                appBarLayout.setExpanded(true, true);
+            }
+            if (userRole != null && !TextUtils.isEmpty(userRole)) {
+                if (userRole.equals(Constants.ROLE_USER)) {
+
+                    Event  event= new Event();
+                    crdAddressDetail.setVisibility(View.VISIBLE);
+                    crdDateDetail.setVisibility(View.VISIBLE);
+                    presenter.getEventData();
+                }
+            }
+        }
+
+        btnUpdate.setOnClickListener(this);
+    }
+
+
+
+    @Override
+    public void setInputLayoutTitleError(String message) {
+        inputLayoutTitle.setError(message);
+    }
+
+    @Override
+    public void setInputLayoutDescriptionError(String message) {
+        inputLayoutDescription.setError(message);
+    }
+
+
+    @Override
+    public void setInputLayoutCityError(String message) {
+        inputLayoutCity.setError(message);
+    }
+
+    @Override
+    public void setInputLayoutVenueError(String message) {
+        inputLayoutVenue.setError(message);
+    }
+
+    @Override
+    public void setInputLayoutStartDateError(String message) {
+        inputLayoutStartDate.setError(message);
+    }
+    @Override
+    public void setInputLayoutEndDateError(String message) {
+        inputLayoutEndDate.setError(message);
+    }
+    @Override
+    public void setUserProfileImage(String url) {
+        Utility.setImage(this, profileImage, url);
+    }
+
+
+    @Override
+    public void setEventData(Event event) {
+        if (event != null) {
+            inputTitle.setText(event.getTitle());
+            inputDescription.setText(event.getDescription());
+            inputVenue.setText(event.getVenue());
+            inputCity.setText(event.getCity());
+            inputStartDate.setText(event.getStartDate());
+            inputEndDate.setText(event.getEndDate());
+
+            if (event.getProfilePicture() != null) {
+                Utility.setImage(EventActivity.this, profileImage, event.getProfilePicture());
+                SharedPreference.setStringSharedPreference(EventActivity.this, Constants.KEY_USER_PROFILE_IMAGE, event.getProfilePicture());
+            }
+        }
+
+    }
+
+    @Override
+    public void setPresenter(Object presenter) {
+
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.onActivityStarted();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        presenter.onActivityStopped();
+    }
+
+    public void resetErrors() {
+        inputLayoutTitle.setError(null);
+        inputLayoutDescription.setError(null);
+        inputLayoutCity.setError(null);
+        inputLayoutVenue.setError(null);
+        inputLayoutStartDate.setError(null);
+        inputLayoutEndDate.setError(null);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_update:
+                resetErrors();
+                presenter.onUpdateButtonClicked(inputTitle.getText().toString(), inputDescription.getText().toString(), inputCity.getText().toString(), inputVenue.getText().toString());
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void setUpdateButtonEnable(boolean enable) {
+        btnUpdate.setEnabled(enable);
     }
 }
-
-
 
 
 

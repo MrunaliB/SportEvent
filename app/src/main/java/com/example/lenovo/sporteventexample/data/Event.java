@@ -22,6 +22,7 @@ public class Event {
     public static final String USER_NAME = "userName";
     public static final String IS_ENABLED = "isEnabled";
     public static final String IS_VERIFIED = "isVerified";
+    public static final String PROFILE_PICTURE = "profilePicture";
 
     private String id;
     private String city;
@@ -38,6 +39,8 @@ public class Event {
     private String userName;
     private boolean isEnabled;
     private boolean isVerified;
+    private String profilePicture;
+
 
     public String getId() {
         return id;
@@ -154,6 +157,16 @@ public class Event {
     public boolean isVerified() {
         return isVerified;
     }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+
 
     public void setVerified(boolean verified) {
         isVerified = verified;
