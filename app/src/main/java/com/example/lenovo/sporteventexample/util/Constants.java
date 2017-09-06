@@ -31,6 +31,8 @@ public class Constants
     public static final String ERR_MSG_AUTHENTICATING_USER = "Error while signing in";
     public static final String KEY_USER_ID = "userId";
     public static final String KEY_USER_DISPLAY_NAME = "displayName";
+    public static final String KEY_USER_DISPLAY_TITLE = "displayTitle";
+
     public static final String KEY_USER_PROFILE_IMAGE = "profileImage";
     public static final String ERR_MSG_RETRIEVING_DATA = "Some error occurred!";
     public static final String PROFILE_IMAGE = "PROFILE_IMAGE_";

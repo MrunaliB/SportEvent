@@ -40,6 +40,19 @@ public class Event {
     private boolean isEnabled;
     private boolean isVerified;
     private String profilePicture;
+    private static Event event;
+
+    public Event(){
+
+    }
+
+    public static Event getInstance(){
+        if(event == null){
+            return new Event();
+        }
+        return event;
+    }
+
 
 
     public String getId() {
@@ -165,8 +178,6 @@ public class Event {
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
     }
-
-
 
     public void setVerified(boolean verified) {
         isVerified = verified;

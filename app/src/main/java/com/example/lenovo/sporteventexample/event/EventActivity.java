@@ -213,7 +213,8 @@ public class EventActivity extends AppCompatActivity implements EventContract.Vi
         switch (view.getId()) {
             case R.id.btn_update:
                 resetErrors();
-                presenter.onUpdateButtonClicked(inputTitle.getText().toString(), inputDescription.getText().toString(), inputCity.getText().toString(), inputVenue.getText().toString());
+                presenter.onUpdateButtonClicked(inputTitle.getText().toString(), inputDescription.getText().toString(), inputCity.getText().toString(),
+                        inputVenue.getText().toString(),inputStartDate.getText().toString(),inputEndDate.getText().toString());
             default:
                 break;
         }

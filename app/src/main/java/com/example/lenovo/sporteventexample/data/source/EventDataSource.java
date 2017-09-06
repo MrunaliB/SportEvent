@@ -2,6 +2,8 @@ package com.example.lenovo.sporteventexample.data.source;
 
 
 
+import android.support.annotation.NonNull;
+
 import com.example.lenovo.sporteventexample.data.Event;
 
 import java.util.List;
@@ -22,6 +24,8 @@ public interface EventDataSource {
     void updateEvent(SaveEventCallback callback, Event event);
 
     void getEvent(String id, GetEventCallback callback);
+
+
 
     interface LoadEventsCallback {
         void onEventsLoaded(List<Event> events);

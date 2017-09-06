@@ -50,7 +50,7 @@ public class Logger {
      * true, therefore allowing you to see your logging statements during
      * development.
      */
-    public static void v(final String tag, String message) {
+   public static void v(final String tag, String message) {
 
         if (!Constants.ENVIRONMENT.equals("PROD")) {
             Log.v(tag, getClassNameMethodNameAndLineNumber() + message);

@@ -32,8 +32,9 @@ public interface EventContract {
         void onActivityStarted();
         void getEventData();
         void onActivityStopped();
-        void onUpdateButtonClicked(String email, String password, String displayName, String phone);
+        void onUpdateButtonClicked(String title, String description, String city, String venue,String startDate,String endDate);
         void setFormType(String formType);
+        void saveEventData(Event event);
 
     }
 
